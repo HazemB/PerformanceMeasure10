@@ -11,10 +11,10 @@ public class Producer extends Thread {
 	private long startTime = 0;
 	private long endTime = 0;
 	Random r;
-    
-	public Producer(Communication c, int n) { 
+
+	public Producer(Communication c, int n) {
 		com = c; repetitions = n;
-		r = new Random(); 
+		r = new Random();
 		messageLength = com.get_messageLength();
 		int totalNumber = repetitions * messageLength;
 		employeePool = new Employee[totalNumber];
@@ -24,24 +24,24 @@ public class Producer extends Thread {
 					"address"+ Integer.toString(i),
 					10000 + i,
 					15 + i );
-			}
 		}
+	}
 
 	public void run() {
 		System.out.println("type GO new line");
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-		try {String Q1 = input.readLine();} catch (IOException e) {e.printStackTrace();} 
-			
+		try {String Q1 = input.readLine();} catch (IOException e) {e.printStackTrace();}
+
 		startTime = System.currentTimeMillis();
 		int sum = 0;
 		for(int i=0; i<repetitions; i++) {
 			com.receiveAck();
 			// prepare message
-			sum = 0; 
+			sum = 0;
 			for(int j=0; j< messageLength; j++){
 				int next = i*(messageLength) + j;
-				com.nextEmpToSend(employeePool[next]);				
- 				// System.out.println("next employee salary " + employeePool[next].salary);
+				com.nextEmpToSend(employeePool[next]);
+				// System.out.println("next employee salary " + employeePool[next].salary);
 				sum = (sum + employeePool[next].salary);
 			}
 			System.out.println("Producer sum " + Integer.toString(sum));
@@ -49,7 +49,7 @@ public class Producer extends Thread {
 		}
 		endTime = System.currentTimeMillis();
 		System.out.println("Producer terminates" );
- 		System.out.println("Producer's execution time "  + (endTime-startTime));
+		System.out.println("Producer's execution time "  + (endTime-startTime));
 	}
 }
 

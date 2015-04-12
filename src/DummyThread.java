@@ -1,10 +1,10 @@
 
-public class DummyThread extends Thread { 
+public class DummyThread extends Thread {
 	public void run() {
-		int i = 0; 
+		int i = 0;
 		while(true){
-			i++; 
+			i++;
 			if(i==1000000){i = 0;}
-			}
 		}
+	}
 }
